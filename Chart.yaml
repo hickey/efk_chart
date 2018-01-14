@@ -1,0 +1,15 @@
+apiVersion: v1
+description: A Helm chart for complete EFK stack
+name: efk
+version: 0.1.0
+keywords:
+  - elasticsearch
+  - kibana
+  - fluentd
+  - logging
+sources:
+  - https://github.com/upmc-enterprises/elasticsearch-operator
+maintainers:
+  - name: Gerard Hickey
+    email: hickey@kinetic-compute.com
+

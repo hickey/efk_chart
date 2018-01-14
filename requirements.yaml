@@ -1,0 +1,7 @@
+dependencies:
+    - name: elasticsearch-operator
+      version: ~0.1.0
+      repository: 
+    #- name: sumologic-fluentd
+    #  version: ~0.2.0
+    #  repository: https://kubernetes-charts.storage.googleapis.com

@@ -1,0 +1,22 @@
+{{- if .Values.kibana.ingress.enabled }}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-kibana
+  labels:
+    app: {{ template "name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    version: {{ .Chart.AppVersion }}
+    heritage: {{ .Release.Service }}
+  annotations:
+{{ toYaml .Values.kibana.ingress.annotations | indent 4 }}
+spec:
+  rules:
+  - https:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ .Release.Name }}-kibana
+          servicePort: 443
+{{- end }}

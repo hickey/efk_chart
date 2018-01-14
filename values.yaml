@@ -1,0 +1,70 @@
+# Default values for elasticsearch-operator.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+elasticsearch:
+  image: upmcenterprises/docker-elasticsearch-kubernetes:5.6.4_1
+  clientReplicas: 1
+  masterReplicas: 1
+  dataReplicas: 1
+  javaOpts: "-Xms256m -Xmx256m"
+
+  # Deploy data nodes across zones
+  #zones:
+  #  - us-east-1c
+  #  - us-east-1d
+  #  - us-east-1e
+
+  storage:
+    volumeSize: 2Gi
+
+    # One should define either storageClass or provisioner
+    # storageClass is used when you have a storage provisioner
+    # already defined (like Rook or Minio). Setting storageClass
+    # to " " will use the default storage class.
+    storageClass:
+
+    # e.g. kubernetes.io/aws-ebs for AWS
+    provisioner: volume.alpha.kubernetes.io/storage-class
+    # e.g. gp2 for AWS
+    type: standard
+
+    # Retain or Delete
+    reclaimPolicy: Delete
+
+  snapshot:
+    enabled: false
+    bucketName: elasticsnapshots
+    schedule: "@every 2m"
+    authentication:
+      enabled: false
+      password: test
+      username: test
+
+  resources:
+    requests:
+      memory: 512Mi
+      cpu: 500m
+    limits:
+      memory: 1024Mi
+      cpu: '1'
+
+kibana:
+  enabled: true
+  image: upmcenterprises/kibana:5.3.1
+  service:
+    annotations:
+
+  ingress:
+    enabled: true
+    annotations:
+      # kubernetes.io/ingress-class: nginx
+      # ingress.kubernetes.io/rewrite-target: /
+
+cerebro:
+  enabled: false
+  image: upmcenterprises/cerebro:0.6.8
+
+statsd:
+  enabled: false
+  host: ""

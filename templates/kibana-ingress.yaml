@@ -13,7 +13,7 @@ metadata:
 {{ toYaml .Values.kibana.ingress.annotations | indent 4 }}
 spec:
   rules:
-  - https:
+  - http:
       paths:
       - path: /
         backend:
